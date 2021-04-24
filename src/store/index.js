@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { reqUserInfo } from 'network/api'
-
+import { reqUserInfo, reqCityLocation } from 'network/api'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     userInfo: {},
-    selectCity: ''
+    selectCity: '定位中...'
   },
   mutations: {
     changeUserInfo(state, newInfo) {
@@ -28,7 +27,7 @@ export default new Vuex.Store({
     },
     changeSelectCity(state, newCity) {
       state.selectCity = newCity;
-    }
+    },
   },
   actions: {
     getUserInfo(content) {
@@ -37,6 +36,14 @@ export default new Vuex.Store({
           content.commit('changeUserInfo', res.data);
         });
       }
+    },
+    getCityLocation() {
+      window.navigator.geolocation.getCurrentPosition(async position => {
+        const { latitude, longitude } = position.coords;
+        console.log(position.coords);
+        const res = await reqCityLocation(latitude, longitude)
+        console.log(res);
+      })
     }
   },
   modules: {

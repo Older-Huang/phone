@@ -20,12 +20,7 @@
        @click="clickItem(item.id)"
       >
         <div class="img">
-          <van-image  :src="item.cover">
-            <template v-slot:loading>
-              <van-loading type="spinner" size="20" />
-            </template>
-             <template v-slot:error>图片加载失败</template>
-          </van-image>
+          <img v-lazy="item.cover" alt="">
         </div>
         <h3 class="title">{{ item.name }}</h3>
         <span class="price">{{ item.price | formatPrice }}</span>
@@ -72,13 +67,6 @@ export default {
       };
       this.flag = true;
     },
-    getLocation() {
-      window.navigator.geolocation.getCurrentPosition((latitude, longitude) => {
-        console.log(latitude, longitude);
-      })
-      // const scritpTag = document.createElement('script');
-      // scritpTag.src = "http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abce78b&callback=renderReverse&location=";
-    },
     mainScroll() {
         let { scrollHeight, scrollTop, offsetHeight } = this.$refs.main;
         this.showBackTop = scrollTop > 1500;
@@ -93,7 +81,7 @@ export default {
   },
   computed: {
     currentCity() {
-      return this.$store.state.selectCity || '深圳市';
+      return this.$store.state.selectCity;
     }
   }
 }

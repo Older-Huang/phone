@@ -12,6 +12,7 @@
           v-model="value"
           placeholder="请输入搜索关键词"
           @input="searchInput"
+          :clearable="false"
         />
       </template>
     </van-nav-bar>
@@ -23,12 +24,7 @@
         @click="clickItem(item.id)"
       >
         <div class="img">
-          <van-image :src="item.cover">
-            <template v-slot:loading>
-              <van-loading type="spinner" size="20" />
-            </template>
-            <template v-slot:error>图片加载失败</template>
-          </van-image>
+          <img  v-lazy="item.cover" alt="">
         </div>
         <h3 class="title">{{ item.name }}</h3>
         <span class="price">{{ item.price | formatPrice }}</span>

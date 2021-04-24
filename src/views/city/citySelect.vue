@@ -9,9 +9,9 @@
         fixed
         />
         <van-index-bar :index-list="indexList" sticky :sticky-offset-top="46" highlight-color="rgb(4, 252, 128)">
-            <template v-for="item in indexList">
-              <van-index-anchor :key="item" :index="item" />
-              <van-cell @click="selectCity" :title="city.name" v-for="city in cityList[item]" :key="city.id" />
+            <template v-for="(value, key) in cityList">
+              <van-index-anchor :key="key" :index="key" />
+              <van-cell @click="selectCity(city.name)" :title="city.name" v-for="city in value" :key="city.id" />
             </template>
         </van-index-bar>
   </div>
@@ -32,15 +32,14 @@ export default {
             this.cityList = data.cities;
             this.indexList = Object.keys(data.cities);
         },
-        selectCity(ev) {
-            let city = ev.currentTarget.children[0].children[0].innerText
+        selectCity(city) {
             this.$store.commit('changeSelectCity', city);
             this.$router.back();
         }
     },
     computed: {
         currentCity() {
-            return this.$store.state.selectCity || '深圳市';
+            return this.$store.state.selectCity;
         }
     },
     created() {

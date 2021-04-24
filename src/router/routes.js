@@ -120,17 +120,11 @@ const routes = [
     },{
         path: '/citySelect',
         name: 'citySelect',
-        component: () => import('views/city/citySelect'),
-        meta: {
-            isLogin: true
-        }
+        component: () => import('views/city/citySelect')
     },{
         path: '/search',
         name: 'search',
-        component: () => import('views/search/search'),
-        meta: {
-            isLogin: true
-        }
+        component: () => import('views/search/search')
     }
 ]
 

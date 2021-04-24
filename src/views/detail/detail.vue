@@ -11,7 +11,7 @@
     <main class="container">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#39a9ed">
         <van-swipe-item v-for="item in productDetail.imgList" :key="item.id">
-          <img :src="item.path" alt="" />
+          <img  v-lazy="item.path" alt="" />
         </van-swipe-item>
       </van-swipe>
       <van-cell :title="productDetail.name" :label="productDetail.price | formatPrice" />
@@ -31,7 +31,7 @@
       </van-cell-group>
       <van-tabs v-model="active" sticky offset-top="46">
         <van-tab title="图片">
-            <img v-for="item in productDetail.detailImgList" :key="item.id" :src="item.path">
+            <img v-for="item in productDetail.detailImgList" :key="item.id" v-lazy="item.path">
         </van-tab>
         <van-tab title="参数">
             <van-cell-group>

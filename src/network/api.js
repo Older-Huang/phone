@@ -1,4 +1,7 @@
 import { request } from './request'
+import Vue from 'vue'
+import {VueJsonp} from 'vue-jsonp'
+Vue.use(VueJsonp)
 //请求数据的api接口
 // 商品分页与搜索
 export const reqProductsData = options => request({url: '/product/pagination', method: 'get', params: options});
@@ -63,3 +66,5 @@ export const updataUserPayPassword = data => request({url: '/user/updatePayPassw
 // 获取带字母排序的城市列表
 export const reqCityData = () => request({url: '/data/city', method: 'get'});
 
+// 获取地理定位信息对象
+export const reqCityLocation = (latitude = 37.3986039, longitude = -121.9643745) => Vue.prototype.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abce78b&callback=renderReverse&location=${latitude},${longitude}`);
